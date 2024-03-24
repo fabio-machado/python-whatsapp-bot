@@ -10,6 +10,7 @@ import asyncio
 # --------------------------------------------------------------
 
 load_dotenv()
+
 ACCESS_TOKEN = os.getenv("ACCESS_TOKEN")
 RECIPIENT_WAID = os.getenv("RECIPIENT_WAID")
 PHONE_NUMBER_ID = os.getenv("PHONE_NUMBER_ID")
@@ -27,13 +28,18 @@ def send_whatsapp_message():
     url = f"https://graph.facebook.com/{VERSION}/{PHONE_NUMBER_ID}/messages"
     headers = {
         "Authorization": "Bearer " + ACCESS_TOKEN,
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
     }
     data = {
         "messaging_product": "whatsapp",
         "to": RECIPIENT_WAID,
         "type": "template",
-        "template": {"name": "hello_world", "language": {"code": "en_US"}},
+        "template": {
+            "name": "hello_world", 
+            "language": {
+                "code": "en_US"
+            }
+        }
     }
     response = requests.post(url, headers=headers, json=data)
     return response
@@ -43,6 +49,7 @@ def send_whatsapp_message():
 response = send_whatsapp_message()
 print(response.status_code)
 print(response.json())
+
 
 # --------------------------------------------------------------
 # Send a custom text WhatsApp message
@@ -84,10 +91,12 @@ def send_message(data):
 
 
 data = get_text_message_input(
-    recipient=RECIPIENT_WAID, text="Hello, this is a test message."
+    recipient=RECIPIENT_WAID, 
+    text="Hello, this is a test message."
 )
 
 response = send_message(data)
+
 
 # --------------------------------------------------------------
 # Send a custom text WhatsApp message asynchronously
@@ -131,7 +140,8 @@ def get_text_message_input(recipient, text):
 
 
 data = get_text_message_input(
-    recipient=RECIPIENT_WAID, text="Hello, this is a test message."
+    recipient=RECIPIENT_WAID, 
+    text="Hello, this is a test message."
 )
 
 loop = asyncio.get_event_loop()
