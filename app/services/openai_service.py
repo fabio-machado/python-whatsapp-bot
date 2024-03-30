@@ -18,6 +18,7 @@ def upload_file(path):
         file=open(path, "rb"), 
         purpose="assistants"
     )
+    return file
 
 
 def create_assistant(ass_name, ass_instructions, ass_model, ass_files):
